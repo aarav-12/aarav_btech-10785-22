@@ -1,27 +1,33 @@
-import dotenv from "dotenv";
-dotenv.config();
-
+/* eslint-disable no-undef */
 import passport from "passport";
 import { Strategy as GitHubStrategy } from "passport-github2";
 
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((obj, done) => done(null, obj));
+// Store user in session
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
 
+// Retrieve user from session
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
+// GitHub OAuth strategy
 passport.use(
   new GitHubStrategy(
     {
-      // eslint-disable-next-line no-undef
       clientID: process.env.GITHUB_CLIENT_ID,
-      // eslint-disable-next-line no-undef
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: "http://localhost:5000/auth/github/callback",
     },
     (accessToken, refreshToken, profile, done) => {
-      return done(null, {
+      const user = {
         id: profile.id,
         username: profile.username,
-        avatar: profile.photos?.[0]?.value,
-      });
+        avatar: profile.photos?.[0]?.value || null,
+      };
+
+      return done(null, user);
     }
   )
 );

@@ -26,9 +26,9 @@ app.use("/auth", authRoutes);
 
 app.use("/tasks", requireAuth, taskRoutes);
 
-app.get("/", (req, res) => {
-  res.send("API running");
-});
+// app.get("/", (req, res) => {
+//   res.send("API running");
+// });
 app.get("/", (req, res) => {
   res.send("Task Management API is running 🚀");
 });
