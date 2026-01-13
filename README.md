@@ -1,12 +1,12 @@
-Task Management System (Kanban Based)
+Task Management System — Kanban Based
 Overview
 
-This project is a Kanban-style Task Management System built as part of an SDE assignment.
-It focuses on clean backend architecture, secure authentication, and end-to-end task flow, while keeping the UI intentionally minimal and easy to run.
+This project is a Kanban-style Task Management System developed as part of an SDE assignment.
+The goal was to build a clear, secure, and end-to-end functional system, with special attention to backend structure and authentication, while keeping the frontend lightweight and easy to run locally.
 
-The application allows authenticated users to manage their own tasks across three states — Pending, In Progress, and Completed following a Kanban workflow.
+Authenticated users can create and manage their own tasks and move them through three Kanban states: Pending, In Progress, and Completed.
 
-Tech Stack
+Technology Stack
 Backend
 
 Node.js
@@ -25,36 +25,36 @@ HTML
 
 Vanilla JavaScript
 
-Minimal CSS
+Basic CSS (minimal styling)
 
 Authentication
 
-GitHub OAuth (session-based)
+GitHub OAuth with session-based login
 
-Features
+Core Features
 Authentication & Access Control
 
 Login using GitHub OAuth
 
-Logout support
+Logout functionality
 
 Session-based authentication
 
-Protected task routes (unauthenticated users cannot access tasks)
+Task routes protected from unauthenticated access
 
 Task Management
 
-Create, view, and delete tasks
+Create, view, update, and delete tasks
 
-Update task status (Kanban flow)
+Tasks are scoped to the logged-in user
 
-Tasks are user-specific
+Task status updates follow a Kanban workflow
 
-Filter tasks by status
+Tasks can be filtered by status
 
-Task Fields
+Task Data Model
 
-Each task includes:
+Each task contains:
 
 title
 
@@ -68,9 +68,9 @@ created_at
 
 userId
 
-Kanban Board
+Kanban Workflow
 
-The frontend displays a Kanban-style board with three columns:
+The frontend renders a Kanban board with three columns:
 
 Pending
 
@@ -78,52 +78,52 @@ In Progress
 
 Completed
 
-Tasks are fetched from the backend and rendered based on their status.
-Instead of drag-and-drop, explicit status action buttons are used to move tasks between columns, ensuring clarity and reliable state updates via API calls.
+Tasks are fetched from the backend and displayed according to their current status.
+Instead of implementing drag-and-drop, explicit status action buttons are used to move tasks between columns. This ensures predictable behavior and reliable backend updates within the limited scope of the assignment.
 
-API Endpoints
-Authentication
-Method	Endpoint	Description
-GET	/auth/github	Login via GitHub
+API Reference
+Authentication Routes
+Method	Endpoint	Purpose
+GET	/auth/github	Initiate GitHub login
 GET	/auth/github/callback	OAuth callback
-GET	/auth/logout	Logout
-Tasks (Protected)
-Method	Endpoint	Description
-GET	/tasks	Get all tasks for logged-in user
+GET	/auth/logout	Logout user
+Task Routes (Protected)
+Method	Endpoint	Purpose
+GET	/tasks	Fetch all tasks for logged-in user
 GET	/tasks?status=pending	Filter tasks by status
 POST	/tasks	Create a new task
 PATCH	/tasks/:id/status	Update task status
 DELETE	/tasks/:id	Delete a task
-Backend Setup
+Running the Backend
 cd backend
 npm install
 node server.js
 
 
-Server runs at:
+The backend server runs on:
 
 http://localhost:5000
 
-Frontend Setup
+Running the Frontend
 
-Open the frontend directly in the browser:
+Open the frontend directly in your browser:
 
 frontend/index.html
 
 
 Login using GitHub and manage tasks via the Kanban board.
 
-Environment Variables
+Environment Configuration
 
-Create a .env file inside the backend/ directory using .env.example.
+Create a .env file inside the backend/ directory using .env.example as a reference.
 
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
 
 
-Sensitive values are not committed to the repository.
+Sensitive environment values are intentionally excluded from version control.
 
-Folder Structure
+Project Structure
 backend/
  ├─ server.js
  ├─ .env.example
@@ -142,43 +142,43 @@ backend/
 frontend/
  └─ index.html
 
-Design Decisions
+Design Choices & Scope
 
-GitHub OAuth was chosen over manual signup/login to avoid handling passwords and to ensure secure authentication.
+GitHub OAuth was selected instead of a custom signup/login flow to avoid password handling and to keep authentication secure and simple.
 
-In-memory task storage is used for simplicity and ease of setup. The data model is database-ready and can be extended to MongoDB or SQL without structural changes.
+In-memory task storage was used to keep the setup lightweight and easy to evaluate. The task structure is intentionally database-ready for future persistence.
 
-Kanban interactions are implemented through explicit status updates instead of drag-and-drop to keep the UI simple and reliable within limited time.
+Kanban interactions are implemented through controlled status updates rather than drag-and-drop, prioritizing correctness and clarity over UI complexity.
 
-Priority was given to code clarity, modular structure, and correct authentication flow.
+The overall focus was on modular backend design, clean routing, and secure access control.
 
 Error Handling
 
-Invalid inputs return meaningful HTTP status codes
+Invalid input is handled with appropriate 400 responses
 
 Unauthorized access returns 401
 
-Missing resources return 404
+Non-existent resources return 404
 
 Git Practices
 
-Incremental commits
+Incremental commits showing development progress
 
-Clear and meaningful commit messages
+Meaningful commit messages
 
 No autogenerated or sensitive files committed
 
-Future Improvements
+Future Enhancements
 
-Persistent database support
+Database persistence (MongoDB / PostgreSQL)
 
-Drag-and-drop UI
+Drag-and-drop UI for Kanban interactions
 
 User profile update endpoints
 
 Automated tests
 
-Deployment
+Deployment to a hosting platform
 
 Author
 
@@ -186,5 +186,5 @@ Aarav Mithrani
 
 Final Note
 
-This project intentionally balances scope and correctness.
-The focus is on building a reliable, readable system that demonstrates sound backend design and authentication practices.
+This project was implemented end-to-end by me as part of a time-bound assignment.
+AI tools were used for guidance and debugging, but the final code structure, logic, and design decisions reflect my own implementation and understanding of backend systems and authentication flows.
